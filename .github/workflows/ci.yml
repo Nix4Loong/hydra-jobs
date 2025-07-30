@@ -1,0 +1,121 @@
+name: Auto Update Nix Flakes
+
+on:
+  schedule:
+    - cron: "0 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update-flakes:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check loongson-community/nixpkgs repository updates
+        id: check-update
+        run: |
+          echo "Checking loongson-community/nixpkgs loong-master branch..."
+          REMOTE_SHA=$(git ls-remote https://github.com/loongson-community/nixpkgs.git loong-master | cut -f1)
+
+          echo "Remote latest commit: $REMOTE_SHA"
+          LAST_SHA_FILE=".github/last-nixpkgs-sha"
+          if [ -f "$LAST_SHA_FILE" ]; then
+            LAST_SHA=$(grep -v '^#' "$LAST_SHA_FILE" | tail -n 1 | tr -d '[:space:]')
+            if [ -n "$LAST_SHA" ]; then
+              echo "Last recorded commit: $LAST_SHA"
+            else
+              LAST_SHA=""
+              echo "File exists but no valid SHA found"
+            fi
+          else
+            LAST_SHA=""
+            echo "First run, no history record"
+          fi
+
+          if [ "$REMOTE_SHA" = "$LAST_SHA" ]; then
+            echo "No new updates found, exiting"
+            echo "has_update=false" >> $GITHUB_OUTPUT
+          else
+            echo "New update detected!"
+            echo "has_update=true" >> $GITHUB_OUTPUT
+            if [ -f "$LAST_SHA_FILE" ]; then
+              grep '^#' "$LAST_SHA_FILE" > "${LAST_SHA_FILE}.tmp"
+              echo "$REMOTE_SHA" >> "${LAST_SHA_FILE}.tmp"
+              mv "${LAST_SHA_FILE}.tmp" "$LAST_SHA_FILE"
+            else
+              echo "# This file records the last checked commit SHA from loongson-community/nixpkgs@loong-master branch" > "$LAST_SHA_FILE"
+              echo "# Automatically maintained by GitHub Actions, do not edit manually" >> "$LAST_SHA_FILE"
+              echo "$REMOTE_SHA" >> "$LAST_SHA_FILE"
+            fi
+          fi
+          echo "remote_sha=$REMOTE_SHA" >> $GITHUB_OUTPUT
+
+      - name: Find and update all flake.nix files
+        if: steps.check-update.outputs.has_update == 'true'
+        run: |
+          echo "Starting to update all Nix flakes..."
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+
+          FLAKE_DIRS=$(find . -name "flake.nix" -type f | xargs -I {} dirname {} | sort -u)
+          if [ -z "$FLAKE_DIRS" ]; then
+            echo "No flake.nix files found"
+            exit 0
+          fi
+
+          UPDATED=false
+          for dir in $FLAKE_DIRS; do
+            echo "Processing directory: $dir"
+            cd "$dir"
+            if [ ! -f "flake.lock" ]; then
+              echo "  Creating initial flake.lock"
+              nix flake lock
+            fi
+            echo "  Running nix flake update..."
+            nix flake update
+            cd - > /dev/null
+          done
+
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        if: steps.check-update.outputs.has_update == 'true'
+        with:
+          commit_message: |
+            🤖 Auto update Nix flakes
+
+            - Detected new commit in loongson-community/nixpkgs@loong-master
+            - Latest commit: ${{ steps.check-update.outputs.remote_sha }}
+            - Updated all related flake.lock files
+          commit_user_name: github-actions[bot]
+          commit_user_email: github-actions[bot]@users.noreply.github.com
+          commit_author: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
+          push_options: "--force"
+          skip_dirty_check: false
+          skip_fetch: true
+
+      - name: Create summary
+        if: always()
+        run: |
+          echo "# 🔄 Nix Flakes Auto Update Report" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Time: $(date)" >> $GITHUB_STEP_SUMMARY
+          echo "Branch: ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          if [ "${{ steps.check-update.outputs.has_update }}" = "true" ]; then
+            echo "✅ Status: New update detected and processed" >> $GITHUB_STEP_SUMMARY
+            echo "📊 Remote commit: \`${{ steps.check-update.outputs.remote_sha }}\`" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "ℹ️ Status: No new updates found" >> $GITHUB_STEP_SUMMARY
+          fi
