@@ -168,6 +168,7 @@
           inherit (pkgs)
             bootspec
             btop
+            curl
             fastfetch
             file
             fish
@@ -177,6 +178,7 @@
             lsof
             nano
             neofetch
+            nixd
             screen
             tmux
             tree
