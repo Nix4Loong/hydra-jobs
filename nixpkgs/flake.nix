@@ -162,7 +162,7 @@
         # flatpak?
       };
 
-      systemClosure = pkgs.callPackage ./closure.nix { };
+      systemClosure = pkgs.callPackage ./closure.nix { inherit nixpkgs; };
     in
     {
       hydraJobs =
