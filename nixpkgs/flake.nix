@@ -161,11 +161,14 @@
 
         # flatpak?
       };
+
+      systemClosure = pkgs.callPackage ./closure.nix { };
     in
     {
       hydraJobs =
         {
           inherit (pkgs)
+            bluez
             bootspec
             btop
             curl
@@ -186,6 +189,7 @@
             ;
         }
         // gnomePkgs
-        // plasma6Pkgs;
+        // plasma6Pkgs
+        // systemClosure;
     };
 }
