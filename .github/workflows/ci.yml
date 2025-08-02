@@ -93,7 +93,7 @@ jobs:
         if: steps.check-update.outputs.has_update == 'true'
         with:
           commit_message: |
-            🤖 Auto update Nix flakes
+            flakes: auto update
 
             - Detected new commit in loongson-community/nixpkgs@loong-master
             - Latest commit: ${{ steps.check-update.outputs.remote_sha }}
