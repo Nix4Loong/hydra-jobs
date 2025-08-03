@@ -9,14 +9,31 @@
     { nixpkgs, ... }:
     let
       system = "loongarch64-linux";
+      nixpkgsUrl = "https://download.nix4loong.cn/nix-channels/loong-master";
+      nixOptions = ''
+        experimental-features = nix-command flakes
+        extra-substituters = https://cache.nix4loong.cn https://mirrors.nju.edu.cn/nix-channels/store
+        extra-trusted-public-keys = cache.nix4loong.cn-1:zmkwLihdSUyy6OFSVgvK3br0EaUEczLiJgDfvOmm3pA=
+        extra-system-features = gccarch-la64v1.0 gccarch-loongarch64
+      '';
 
       pkgs = import nixpkgs {
         inherit system;
+
+        overlays = [
+          (final: prev: {
+            calamares-nixos-extensions = prev.calamares-nixos-extensions.overrideAttrs (oldAttrs: {
+              patches = (oldAttrs.patches or [ ]) ++ [
+                ./calamares-nixos-extensions.patch
+              ];
+            });
+          })
+        ];
       };
 
       release = import "${nixpkgs}/nixos/release.nix" {
         supportedSystems = [ system ];
-        configuration = ./config.nix;
+        configuration = import ./config.nix { inherit nixpkgsUrl nixOptions; };
       };
 
       lock = builtins.fromJSON (builtins.readFile ./flake.lock);

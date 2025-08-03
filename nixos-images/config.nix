@@ -1,13 +1,5 @@
+{ nixpkgsUrl, nixOptions }:
 { config, ... }:
-let
-  nixpkgsUrl = "https://download.nix4loong.cn/nix-channels/loong-master";
-  nixOptions = ''
-    experimental-features = nix-command flakes
-    extra-substituters = https://cache.nix4loong.cn https://mirrors.nju.edu.cn/nix-channels/store
-    extra-trusted-public-keys = cache.nix4loong.cn-1:zmkwLihdSUyy6OFSVgvK3br0EaUEczLiJgDfvOmm3pA=
-    extra-system-features = gccarch-la64v1.0 gccarch-loongarch64
-  '';
-in
 {
   # FIXME: GRUB dies after picking any menu item when the machine is driving the display from an AMD card.
   # Looks like the terminal_output=gfxterm → terminal_output=console switch in grub.cfg is the cause.
