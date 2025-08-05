@@ -168,13 +168,16 @@
       hydraJobs =
         {
           inherit (pkgs)
+            amdgpu_top
             bluez
             bootspec
             btop
+            cargo
             curl
             fastfetch
             file
             fish
+            go
             hello
             htop
             jq
@@ -182,6 +185,10 @@
             nano
             neofetch
             nixd
+            nix-ld
+            nodejs
+            python3
+            rustc
             screen
             tmux
             tree

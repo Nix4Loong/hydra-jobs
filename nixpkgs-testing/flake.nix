@@ -13,6 +13,8 @@
     {
       hydraJobs = {
         inherit (pkgs)
+          ghc
+          openjdk
           nixfmt
           hmcl
           ;
