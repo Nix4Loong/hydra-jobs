@@ -173,6 +173,7 @@
             bootspec
             btop
             cargo
+            corectrl
             curl
             fastfetch
             file
@@ -185,7 +186,6 @@
             nano
             neofetch
             nixd
-            nix-ld
             nodejs
             python3
             rustc
