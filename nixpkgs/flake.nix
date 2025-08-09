@@ -178,21 +178,25 @@
             fastfetch
             file
             fish
+            git
             go
             hello
             htop
             jq
             lsof
+            mihomo
             nano
             neofetch
             nixd
             nodejs
+            openssh
             python3
             rustc
             screen
             tmux
             tree
             wget
+            vim
             ;
         }
         // gnomePkgs
