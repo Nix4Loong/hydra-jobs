@@ -155,7 +155,6 @@
           spectacle
           ffmpegthumbs
           krdp
-          xwaylandvideobridge
           ;
         qttools = lib.getBin pkgs.kdePackages.qttools;
 
