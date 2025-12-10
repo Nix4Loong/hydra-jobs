@@ -11,6 +11,7 @@
       },
       "original": {
         "owner": "loongson-community",
+        "ref": "loong-master",
         "repo": "nixpkgs",
         "type": "github"
       }
