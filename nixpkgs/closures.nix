@@ -1,4 +1,4 @@
-{ pkgs, nixpkgs, ... }:
+{ pkgs, lib, ... }:
 let
   system = "loongarch64-linux";
 
@@ -42,7 +42,7 @@ let
 
   mkSystemPackage =
     config:
-    (nixpkgs.lib.nixosSystem {
+    (lib.nixosSystem {
       inherit system;
       modules = [
         sharedConfig

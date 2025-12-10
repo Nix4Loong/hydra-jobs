@@ -1,3 +1,2 @@
-# This file records the last checked commit SHA from loongson-community/nixpkgs@loong-master branch
 # Automatically maintained by GitHub Actions, do not edit manually
-ea80ded1502c0e59b68097bc23993ed8985240be
+trunk=ea80ded1502c0e59b68097bc23993ed8985240be
