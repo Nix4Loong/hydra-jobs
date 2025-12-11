@@ -1,7 +1,5 @@
-{ pkgs }:
+{ nixpkgs, pkgs }:
 let
-  lib = pkgs.lib;
-
   # nixos/modules/services/desktop-managers/gnome.nix
   gnomePkgs = {
     inherit (pkgs)
@@ -147,12 +145,12 @@ let
       ffmpegthumbs
       krdp
       ;
-    qttools = lib.getBin pkgs.kdePackages.qttools;
+    qttools = pkgs.lib.getBin pkgs.kdePackages.qttools;
 
     # flatpak?
   };
 
-  systemClosures = pkgs.callPackage ./closures.nix { };
+  systemClosures = pkgs.callPackage ./closures.nix { inherit nixpkgs; };
 in
 { }
 // gnomePkgs

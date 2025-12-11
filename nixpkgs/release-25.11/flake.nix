@@ -14,6 +14,6 @@
       };
     in
     {
-      hydraJobs = import ../pkgs.nix { inherit pkgs; };
+      hydraJobs = import ../pkgs.nix { inherit pkgs nixpkgs; };
     };
 }
