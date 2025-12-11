@@ -253,6 +253,7 @@ in
     gnupg
     gnutls
     go
+    gost
     gparted
     gptfdisk
     graphene
