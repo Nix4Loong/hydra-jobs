@@ -232,6 +232,7 @@ in
     feh
     ffmpeg
     file
+    firefox
     fish
     flex
     freetype
@@ -274,6 +275,7 @@ in
     inkscape
     iotop
     iotop-c
+    iperf3
     isl
     iw
     iwd
@@ -420,6 +422,7 @@ in
     tmux
     traceroute
     tree
+    tshark
     txt2tags
     ubootVisionFive2
     unbound
