@@ -12,8 +12,6 @@ let
       fsType = "tmpfs";
     };
 
-    services.xserver.enable = true;
-
     services.printing.enable = true;
     services.pulseaudio.enable = false;
     security.rtkit.enable = true;
@@ -29,12 +27,14 @@ let
     ];
   };
   gnomeConfig = {
-    services.xserver.displayManager.gdm.enable = true;
-    services.xserver.desktopManager.gnome.enable = true;
+    services.displayManager.gdm.enable = true;
+    services.desktopManager.gnome.enable = true;
   };
   plasma6Config = {
     services.displayManager.sddm.enable = true;
+    services.displayManager.sddm.wayland.enable = true;
     services.desktopManager.plasma6.enable = true;
+
     environment.systemPackages = with pkgs; [
       kdePackages.kate
     ];
