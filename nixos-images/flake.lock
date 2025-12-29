@@ -1,6 +1,40 @@
 {
   "nodes": {
+    "nix-loongarch-kernel": {
+      "inputs": {
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "lastModified": 1766937918,
+        "narHash": "sha256-Ddi04T0U1MVfXq6q+mKEZkULOwA6T+fCe3iW7329qOs=",
+        "owner": "nix4loong",
+        "repo": "nix-loongarch-kernel",
+        "rev": "12b03e2ec4aa457390ca2a4b686f6b269375d099",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix4loong",
+        "repo": "nix-loongarch-kernel",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
+      "locked": {
+        "lastModified": 1765457371,
+        "narHash": "sha256-peZLkJStMhtq9EE9Hi8ro1gFoYIEWt7PEdhLXlRZJTM=",
+        "owner": "loongson-community",
+        "repo": "nixpkgs",
+        "rev": "7b133b90e007e17a02c8f96f366e6f15049259b4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "loongson-community",
+        "ref": "loong-release-25.11",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_2": {
       "locked": {
         "lastModified": 1766990057,
         "narHash": "sha256-um7CojYusHI5WMafors5SYDOz/h3HfDA2gZlKUTv65U=",
@@ -11,13 +45,15 @@
       },
       "original": {
         "owner": "loongson-community",
+        "ref": "loong-master",
         "repo": "nixpkgs",
         "type": "github"
       }
     },
     "root": {
       "inputs": {
-        "nixpkgs": "nixpkgs"
+        "nix-loongarch-kernel": "nix-loongarch-kernel",
+        "nixpkgs": "nixpkgs_2"
       }
     }
   },

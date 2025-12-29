@@ -1,48 +1,65 @@
-{ nixpkgsUrl, nixOptions }:
-{ config, ... }:
+{
+  nixpkgsUrl,
+  kernelRev,
+  kernelPackages,
+}:
+{ config, lib, ... }:
 {
   # FIXME: GRUB dies after picking any menu item when the machine is driving the display from an AMD card.
   # Looks like the terminal_output=gfxterm → terminal_output=console switch in grub.cfg is the cause.
   isoImage.forceTextMode = true;
 
-  system.defaultChannel = nixpkgsUrl;
-  nix.extraOptions = nixOptions;
+  # Use only the latest kernel, remove LTS kernel specialisations
+  specialisation = lib.mkForce { };
+  boot.kernelPackages = kernelPackages;
+  isoImage.configurationName = lib.mkForce "(Linux ${config.boot.kernelPackages.kernel.version})";
 
-  # TODO: Support injecting components into defaultConfigTemplate in upstream
+  # Remove ZFS from supported filesystems as it is broken on the latest kernel
+  boot.supportedFilesystems = lib.mkForce [
+    "btrfs"
+    "cifs"
+    "f2fs"
+    "ntfs"
+    "vfat"
+    "xfs"
+  ];
+
+  system.defaultChannel = nixpkgsUrl;
+  nix.extraOptions = ''
+    experimental-features = nix-command flakes
+    extra-substituters = https://cache.nix4loong.cn
+    extra-trusted-public-keys = cache.nix4loong.cn-1:zmkwLihdSUyy6OFSVgvK3br0EaUEczLiJgDfvOmm3pA=
+  '';
+
   system.nixos-generate-config.configuration = ''
     # Edit this configuration file to define what should be installed on
     # your system. Help is available in the configuration.nix(5) man page, on
     # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
     { config, lib, pkgs, ... }:
-
+    let
+      nix-loongarch-kernel = builtins.getFlake "github:nix4loong/nix-loongarch-kernel/${kernelRev}";
+    in
     {
       imports =
         [ # Include the results of the hardware scan.
           ./hardware-configuration.nix
         ];
 
-      # Nix4Loong configurations, please keep this unless you know what you are doing!
-      system.defaultChannel = "${nixpkgsUrl}";
-      nix.registry.nixpkgs = {
-        from = {
-          type = "indirect";
-          id = "nixpkgs";
-        };
-        to = {
-          type = "tarball";
-          url = "${nixpkgsUrl}";
-        };
-      };
+      # Nix4Loong configurations, please keep them unless you know what you are doing!
+      boot.kernelPackages = nix-loongarch-kernel.legacyPackages.loongarch64-linux.linuxPackages;
+      system.defaultChannel = "https://download.nix4loong.cn/nix-channels/loong-master";
       nix.extraOptions = \'\'
-      ${nixOptions}
+        experimental-features = nix-command flakes
+        extra-substituters = https://cache.nix4loong.cn
+        extra-trusted-public-keys = cache.nix4loong.cn-1:zmkwLihdSUyy6OFSVgvK3br0EaUEczLiJgDfvOmm3pA=
       \'\';
 
     $bootLoaderConfig
       # networking.hostName = "nixos"; # Define your hostname.
-      # Pick only one of the below networking options.
-      # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-      # networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+
+      # Configure network connections interactively with nmcli or nmtui.
+      networking.networkmanager.enable = true;
 
       # Set your time zone.
       # time.timeZone = "Europe/Amsterdam";

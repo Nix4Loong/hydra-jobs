@@ -1,30 +1,28 @@
 {
-  description = "Nix4Loong NixOS image builds";
+  description = "Nix4Loong trunk NixOS image builds";
 
   inputs = {
-    nixpkgs.url = "github:loongson-community/nixpkgs";
+    nixpkgs.url = "github:loongson-community/nixpkgs?ref=loong-master";
+    nix-loongarch-kernel.url = "github:nix4loong/nix-loongarch-kernel";
   };
 
   outputs =
-    { nixpkgs, ... }:
+    { nixpkgs, nix-loongarch-kernel, ... }:
     let
       system = "loongarch64-linux";
       nixpkgsUrl = "https://download.nix4loong.cn/nix-channels/loong-master";
-      nixOptions = ''
-        experimental-features = nix-command flakes
-        extra-substituters = https://cache.nix4loong.cn https://mirrors.nju.edu.cn/nix-channels/store
-        extra-trusted-public-keys = cache.nix4loong.cn-1:zmkwLihdSUyy6OFSVgvK3br0EaUEczLiJgDfvOmm3pA=
-        extra-system-features = gccarch-la64v1.0 gccarch-loongarch64
-      '';
+
+      lock = builtins.fromJSON (builtins.readFile ./flake.lock);
+      nixpkgsRev = lock.nodes.nixpkgs.locked.rev;
+      kernelRev = lock.nodes.nix-loongarch-kernel.locked.rev;
 
       pkgs = import nixpkgs {
         inherit system;
-
         overlays = [
           (final: prev: {
             calamares-nixos-extensions = prev.calamares-nixos-extensions.overrideAttrs (oldAttrs: {
               patches = (oldAttrs.patches or [ ]) ++ [
-                ./calamares-nixos-extensions.patch
+                (prev.replaceVars ./calamares.patch { inherit kernelRev; })
               ];
             });
           })
@@ -33,11 +31,11 @@
 
       release = import "${nixpkgs}/nixos/release.nix" {
         supportedSystems = [ system ];
-        configuration = import ./config.nix { inherit nixpkgsUrl nixOptions; };
+        configuration = import ./config.nix {
+          inherit nixpkgsUrl kernelRev;
+          kernelPackages = nix-loongarch-kernel.legacyPackages.${system}.linuxPackages;
+        };
       };
-
-      lock = builtins.fromJSON (builtins.readFile ./flake.lock);
-      nixpkgsRev = lock.nodes.nixpkgs.locked.rev;
 
       build =
         input: name:

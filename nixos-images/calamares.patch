@@ -1,28 +1,28 @@
 diff --git a/modules/nixos/main.py b/modules/nixos/main.py
-index 9903de8..5b2f689 100644
+index 9903de8..f36a3b7 100644
 --- a/modules/nixos/main.py
 +++ b/modules/nixos/main.py
-@@ -39,6 +39,25 @@ cfghead = """# Edit this configuration file to define what should be installed o
+@@ -32,13 +32,24 @@ cfghead = """# Edit this configuration file to define what should be installed o
+ # and in the NixOS manual (accessible by running ‘nixos-help’).
+ 
+ { config, pkgs, ... }:
+-
++let
++  nix-loongarch-kernel = builtins.getFlake "github:nix4loong/nix-loongarch-kernel/@kernelRev@";
++in
+ {
+   imports =
+     [ # Include the results of the hardware scan.
        ./hardware-configuration.nix
      ];
  
-+  # Nix4Loong configurations, please keep this unless you know what you are doing!
++  # Nix4Loong configurations, please keep them unless you know what you are doing!
++  boot.kernelPackages = nix-loongarch-kernel.legacyPackages.loongarch64-linux.linuxPackages;
 +  system.defaultChannel = "https://download.nix4loong.cn/nix-channels/loong-master";
-+  nix.registry.nixpkgs = {
-+    from = {
-+      type = "indirect";
-+      id = "nixpkgs";
-+    };
-+    to = {
-+      type = "tarball";
-+      url = "https://download.nix4loong.cn/nix-channels/loong-master";
-+    };
-+  };
 +  nix.extraOptions = ''
 +    experimental-features = nix-command flakes
 +    extra-substituters = https://cache.nix4loong.cn https://mirrors.nju.edu.cn/nix-channels/store
 +    extra-trusted-public-keys = cache.nix4loong.cn-1:zmkwLihdSUyy6OFSVgvK3br0EaUEczLiJgDfvOmm3pA=
-+    extra-system-features = gccarch-la64v1.0 gccarch-loongarch64
 +  '';
 +
  """
