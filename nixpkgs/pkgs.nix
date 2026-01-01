@@ -378,6 +378,11 @@ in
     pulseaudio-ctl
     pulseaudioFull
     python3
+    qemu
+    qemu_full
+    qemu_kvm
+    qemu-user
+    qemu-utils
     rage
     readline
     remarshal
