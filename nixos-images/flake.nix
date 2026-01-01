@@ -29,13 +29,26 @@
         ];
       };
 
-      release = import "${nixpkgs}/nixos/release.nix" {
-        supportedSystems = [ system ];
-        configuration = import ./config.nix {
-          inherit nixpkgsUrl kernelRev;
+      mkCommonConfig =
+        isGraphical:
+        import ./config.nix {
+          inherit nixpkgsUrl kernelRev isGraphical;
           kernelPackages = nix-loongarch-kernel.legacyPackages.${system}.linuxPackages;
         };
+
+      releaseMinimal = import "${nixpkgs}/nixos/release.nix" {
+        supportedSystems = [ system ];
+        configuration = mkCommonConfig false;
       };
+
+      isoGraphicalInput.${system} =
+        (import "${nixpkgs}/nixos/lib/eval-config.nix" {
+          inherit system;
+          modules = [
+            (mkCommonConfig true)
+            (import ./installation-cd-graphical.nix { nixpkgsPath = nixpkgs; })
+          ];
+        }).config.system.build.isoImage;
 
       build =
         input: name:
@@ -54,8 +67,8 @@
           echo "${nixpkgsRev}" > $out/git-revision
           echo "file txt $out/git-revision" >> $out/nix-support/hydra-build-products
         '';
-      iso_minimal = build release.iso_minimal "minimal";
-      iso_graphical = build release.iso_graphical "graphical";
+      iso_minimal = build releaseMinimal.iso_minimal "minimal";
+      iso_graphical = build isoGraphicalInput "graphical";
     in
     {
       packages.${system} = {
@@ -63,8 +76,8 @@
       };
 
       hydraJobs = {
-        iso_minimal.loongarch64-linux = iso_minimal;
-        iso_graphical.loongarch64-linux = iso_graphical;
+        iso_minimal.loongarch64-linux = pkgs.lib.hydraJob iso_minimal;
+        iso_graphical.loongarch64-linux = pkgs.lib.hydraJob iso_graphical;
 
         runCommandHook.publish =
           let

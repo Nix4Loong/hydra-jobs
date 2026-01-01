@@ -2,17 +2,26 @@
   nixpkgsUrl,
   kernelRev,
   kernelPackages,
+  isGraphical ? false,
 }:
 { config, lib, ... }:
 {
-  # FIXME: GRUB dies after picking any menu item when the machine is driving the display from an AMD card.
-  # Looks like the terminal_output=gfxterm → terminal_output=console switch in grub.cfg is the cause.
-  isoImage.forceTextMode = true;
+  nixpkgs.overlays = [
+    (final: prev: {
+      calamares-nixos-extensions = prev.calamares-nixos-extensions.overrideAttrs (oldAttrs: {
+        patches = (oldAttrs.patches or [ ]) ++ [
+          (prev.replaceVars ./calamares.patch { inherit kernelRev; })
+        ];
+      });
+    })
+  ];
 
-  # Use only the latest kernel, remove LTS kernel specialisations
-  specialisation = lib.mkForce { };
   boot.kernelPackages = kernelPackages;
-  isoImage.configurationName = lib.mkForce "(Linux ${config.boot.kernelPackages.kernel.version})";
+
+  # Only set configurationName for minimal ISO, graphical ISO uses specialisation's own names
+  isoImage.configurationName = lib.mkIf (!isGraphical) (
+    lib.mkForce "(Linux ${config.boot.kernelPackages.kernel.version})"
+  );
 
   # Remove ZFS from supported filesystems as it is broken on the latest kernel
   boot.supportedFilesystems = lib.mkForce [
