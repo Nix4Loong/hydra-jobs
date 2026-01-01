@@ -18,6 +18,8 @@
 
   boot.kernelPackages = kernelPackages;
 
+  specialisation = lib.mkIf (!isGraphical) (lib.mkForce { });
+
   # Only set configurationName for minimal ISO, graphical ISO uses specialisation's own names
   isoImage.configurationName = lib.mkIf (!isGraphical) (
     lib.mkForce "(Linux ${config.boot.kernelPackages.kernel.version})"
