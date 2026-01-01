@@ -433,7 +433,6 @@ in
     unzip
     usbutils
     util-linux
-    valgrind
     vaultwarden
     vim
     w3m
