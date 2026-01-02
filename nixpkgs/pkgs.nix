@@ -386,6 +386,7 @@ in
     rage
     readline
     remarshal
+    ripgrep
     ronn
     ruby
     rustc
