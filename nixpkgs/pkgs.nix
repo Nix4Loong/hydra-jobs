@@ -342,7 +342,8 @@ in
     nix-output-monitor
     nix-update
     nixd
-    nixfmt-rfc-style
+    nixfmt
+    nixfmt-tree
     nixos-init
     nixos-install-tools
     nixos-option
