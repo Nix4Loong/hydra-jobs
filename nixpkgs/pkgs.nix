@@ -159,7 +159,6 @@ in
 // {
   inherit (pkgs)
     age
-    agenix-cli
     alsa-firmware
     alsa-utils
     amdgpu_top
@@ -191,7 +190,6 @@ in
     ckbcomp
     clang
     cloud-utils
-    cloudflared
     clutter
     cmake
     cmus
@@ -262,7 +260,6 @@ in
     grub2_light
     gsl
     guile
-    hatch
     hello
     help2man
     htop
@@ -321,7 +318,7 @@ in
     mpc
     mpd
     mpfr
-    mpv
+    # mpv
     ms-sys
     mtdutils
     mtools
@@ -339,7 +336,6 @@ in
     ninja
     nix
     nix-info
-    nix-output-monitor
     nix-update
     nixd
     nixfmt
@@ -397,7 +393,6 @@ in
     sdparm
     sendme
     shellcheck-minimal
-    silverbullet
     smartmontools
     socat
     sof-firmware
@@ -432,7 +427,6 @@ in
     tree
     tshark
     txt2tags
-    ubootVisionFive2
     unbound
     unicode-character-database
     unicode-emoji
@@ -456,7 +450,6 @@ in
     xz
     zlib
     zram-generator
-    zrepl
     zsh
     ;
 }
