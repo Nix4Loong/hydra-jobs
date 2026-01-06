@@ -349,6 +349,7 @@ in
     nixpkgs-track
     nmap
     nodejs
+    nodejs-slim
     npth
     nsncd
     ntfs3g
@@ -439,6 +440,8 @@ in
     w3m
     w3m-nox
     wakeonlan
+    webkitgtk_4_1
+    webkitgtk_6_0
     wget
     which
     whois
