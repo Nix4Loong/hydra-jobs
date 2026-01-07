@@ -360,6 +360,7 @@ in
     openssl
     openvpn
     p7zip
+    pandoc
     pango
     patchelf
     pciutils
