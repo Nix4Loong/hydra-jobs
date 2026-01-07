@@ -5,11 +5,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1767709091,
-        "narHash": "sha256-LdnFJvyPGbV+NQRPm4Go8DixzYUlt0XLx35QU+bdu7w=",
+        "lastModified": 1767769127,
+        "narHash": "sha256-GIJChEL8zrq5Z0ichGOLADLn83DZzzC5JaEGCEQDDeE=",
         "owner": "nix4loong",
         "repo": "nix-loongarch-kernel",
-        "rev": "5c56095b171e5307bc2701a38e00f73a7648c1c3",
+        "rev": "464f5e38c1ee2da66f9d5d8fdb246c4c1cd41b80",
         "type": "github"
       },
       "original": {
@@ -20,27 +20,27 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1765457371,
-        "narHash": "sha256-peZLkJStMhtq9EE9Hi8ro1gFoYIEWt7PEdhLXlRZJTM=",
+        "lastModified": 1767717346,
+        "narHash": "sha256-X6Brd5BkdbM4y8T/qXHPPawBTwkp7RbViTCM+p9eNps=",
         "owner": "loongson-community",
         "repo": "nixpkgs",
-        "rev": "7b133b90e007e17a02c8f96f366e6f15049259b4",
+        "rev": "c9906fad67bd415a74b826fbc93d5669f28e8a02",
         "type": "github"
       },
       "original": {
         "owner": "loongson-community",
-        "ref": "loong-release-25.11",
+        "ref": "loong-master",
         "repo": "nixpkgs",
         "type": "github"
       }
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1767717346,
-        "narHash": "sha256-X6Brd5BkdbM4y8T/qXHPPawBTwkp7RbViTCM+p9eNps=",
+        "lastModified": 1767781748,
+        "narHash": "sha256-2sspWlesVDae+AF5oOfMM0MfoSpl6eLzxuBBOP44/iM=",
         "owner": "loongson-community",
         "repo": "nixpkgs",
-        "rev": "c9906fad67bd415a74b826fbc93d5669f28e8a02",
+        "rev": "e3de7ed1614a645c6bc14f8e289d257e50e6f1c1",
         "type": "github"
       },
       "original": {
