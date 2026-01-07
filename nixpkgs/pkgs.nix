@@ -438,6 +438,7 @@ in
     util-linux
     vaultwarden
     vim
+    vscodium
     w3m
     w3m-nox
     wakeonlan
