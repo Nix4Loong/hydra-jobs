@@ -26,6 +26,16 @@ let
       firefox
     ];
   };
+  xfceConfig = {
+    services.xserver = {
+      enable = true;
+      desktopManager = {
+        xterm.enable = false;
+        xfce.enable = true;
+      };
+    };
+    services.displayManager.defaultSession = "xfce";
+  };
   gnomeConfig = {
     services.displayManager.gdm.enable = true;
     services.desktopManager.gnome.enable = true;
@@ -51,6 +61,7 @@ let
     }).config.system.build.toplevel;
 in
 {
+  xfceClosure = mkSystemPackage xfceConfig;
   gnomeClosure = mkSystemPackage gnomeConfig;
   plasma6Closure = mkSystemPackage plasma6Config;
 }
