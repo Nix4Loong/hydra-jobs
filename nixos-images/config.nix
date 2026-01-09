@@ -16,6 +16,10 @@
     })
   ];
 
+  # FIXME: GRUB crashes after selecting any menu item on systems with AMD graphics cards.
+  # The issue appears to be caused by the terminal_output mode switch from gfxterm to console in grub.cfg.
+  isoImage.forceTextMode = true;
+
   boot.kernelPackages = kernelPackages;
 
   specialisation = lib.mkIf (!isGraphical) (lib.mkForce { });
