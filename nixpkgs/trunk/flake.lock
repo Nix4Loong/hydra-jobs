@@ -2,11 +2,11 @@
   "nodes": {
     "nixpkgs": {
       "locked": {
-        "lastModified": 1769472766,
-        "narHash": "sha256-ArL5zwCBTpdhbTTrGIqALSYiGbcy+GW0ujR96OAYvd4=",
+        "lastModified": 1769513148,
+        "narHash": "sha256-bLOX9a7RWZbg+fQQ650sqhvDwwdwqCyH3l6KhunUeiU=",
         "owner": "loongson-community",
         "repo": "nixpkgs",
-        "rev": "94bf233e9bb1c34509df9f54ee862165357cbe6f",
+        "rev": "b53310aa51d83e8c45688dee2c87e7b381d9277f",
         "type": "github"
       },
       "original": {
