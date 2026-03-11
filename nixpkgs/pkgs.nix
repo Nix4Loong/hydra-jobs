@@ -327,7 +327,6 @@ in
     nano
     ncmpcpp
     ncurses
-    neofetch
     netbird
     netdata
     networkmanager
