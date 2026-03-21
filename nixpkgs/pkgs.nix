@@ -290,6 +290,7 @@ in
     librevenge
     libsecret
     libuv
+    libvirt
     libxcrypt
     libxml2
     libxslt
