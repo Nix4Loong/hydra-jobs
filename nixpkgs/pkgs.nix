@@ -437,6 +437,7 @@ in
     usbutils
     util-linux
     vaultwarden
+    vicinae
     vim
     vscodium
     w3m
