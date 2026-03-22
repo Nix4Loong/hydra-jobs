@@ -5,11 +5,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1769674977,
-        "narHash": "sha256-H/1N3VCmCwnbgZaL3iMHrLUqNlxOJN2FchiHoT1EK1I=",
+        "lastModified": 1774165021,
+        "narHash": "sha256-p0MhU3suIvjKrQtDPjSHRimekW/WXjyNKRLI6wS5New=",
         "owner": "nix4loong",
         "repo": "nix-loongarch-kernel",
-        "rev": "95a646d7247f70de5cc3d4fdbeb6630042db8891",
+        "rev": "45ef25d4768c5816a3519849a9f11acfff130c23",
         "type": "github"
       },
       "original": {
@@ -36,11 +36,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1774136314,
-        "narHash": "sha256-5gT+KCAk9EU6tyREjrOTCqIzdbY4f1j+jaQY9ogjMsE=",
+        "lastModified": 1774184349,
+        "narHash": "sha256-E1LngcAm5R4nCGYRbX6rK1ijGbnxFV2mIz9iPqWEoK0=",
         "owner": "loongson-community",
         "repo": "nixpkgs",
-        "rev": "6830f44cb7bd5d07587129eb1d98c642d59fc324",
+        "rev": "aa219a681d6d45f35d7f548fe22c25ff03d402de",
         "type": "github"
       },
       "original": {
