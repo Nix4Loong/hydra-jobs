@@ -2,7 +2,7 @@ name: Auto Update Nix Flakes
 
 on:
   schedule:
-    - cron: "0 * * * *"
+    - cron: "37 * * * *"
   workflow_dispatch:
 
 permissions:
