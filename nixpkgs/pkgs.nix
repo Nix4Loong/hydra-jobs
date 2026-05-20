@@ -225,7 +225,6 @@ in
     f2fs-tools
     fakeroot
     fastfetch
-    fastfetchMinimal
     fatresize
     feh
     ffmpeg
@@ -458,4 +457,7 @@ in
     zram-generator
     zsh
     ;
+
+  fastfetchMinimal =
+    if (pkgs.fastfetch ? minimal) then pkgs.fastfetch.minimal else pkgs.fastfetchMinimal;
 }
