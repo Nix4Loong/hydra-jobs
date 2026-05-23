@@ -369,6 +369,7 @@ in
     pipewire
     pkg-config
     polkit
+    postgresql
     prometheus
     prometheus-node-exporter
     protobuf
@@ -383,6 +384,7 @@ in
     qemu-utils
     rage
     readline
+    redis
     remarshal
     ripgrep
     ronn
