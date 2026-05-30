@@ -352,6 +352,7 @@ in
     npth
     nsncd
     ntfs3g
+    ntp
     nvme-cli
     openexr
     openldap
