@@ -186,6 +186,7 @@ in
     cairo
     cargo
     ccrypt
+    chrony
     cifs-utils
     ckbcomp
     clang
