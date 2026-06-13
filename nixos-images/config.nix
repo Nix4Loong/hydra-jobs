@@ -30,14 +30,7 @@
   );
 
   # Remove ZFS from supported filesystems as it is broken on the latest kernel
-  boot.supportedFilesystems = lib.mkForce [
-    "btrfs"
-    "cifs"
-    "f2fs"
-    "ntfs"
-    "vfat"
-    "xfs"
-  ];
+  boot.supportedFilesystems.zfs = lib.mkForce false;
 
   system.defaultChannel = nixpkgsUrl;
   nix.extraOptions = ''
