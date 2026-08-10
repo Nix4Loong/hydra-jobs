@@ -170,10 +170,12 @@ in
     autoconf
     automake
     bash
+    bashNonInteractive
     bat
     bcache-tools
     bind
     binutils
+    binutils-unwrapped
     bison
     bluez
     bluez-alsa
@@ -236,6 +238,7 @@ in
     freetype
     fzf
     gatus
+    gcc-unwrapped
     gdb
     getconf
     gettext
@@ -245,6 +248,7 @@ in
     git-absorb
     gixy
     glance
+    glibc
     glibcLocales
     glibcLocalesUtf8
     gmp
@@ -285,10 +289,12 @@ in
     lib2geom
     libelf
     libffi
+    libidn2
     libmpc
     libressl
     librevenge
     libsecret
+    libunistring
     libuv
     libvirt
     libxcrypt
@@ -296,12 +302,14 @@ in
     libxslt
     limine
     linux-firmware
+    linuxHeaders
     lirc
     llvm
     logrotate
     lshw
     lsof
     lua
+    m4
     makeInitrdNGTool
     man-pages
     mc
