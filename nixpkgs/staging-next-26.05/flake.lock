@@ -1,0 +1,27 @@
+{
+  "nodes": {
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1786702486,
+        "narHash": "sha256-Ba8ySFm63+eOvUhGEpLzTNRC6XP2wIOeZ9dXGH2ETL4=",
+        "owner": "loongson-community",
+        "repo": "nixpkgs",
+        "rev": "e68d44542a42197a10f36680c90848773b91d7c9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "loongson-community",
+        "ref": "loong-staging-next-26.05",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "nixpkgs": "nixpkgs"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
