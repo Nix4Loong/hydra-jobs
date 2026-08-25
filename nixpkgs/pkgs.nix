@@ -222,6 +222,7 @@ in
     dumbpipe
     e2fsprogs
     efibootmgr
+    emacs
     exiv2
     expat
     expect
@@ -268,6 +269,7 @@ in
     help2man
     htop
     hunspell
+    hydra
     hydra-check
     i2pd
     ibus
@@ -301,8 +303,10 @@ in
     libxml2
     libxslt
     limine
+    linux
     linux-firmware
     linuxHeaders
+    linux_latest
     lirc
     llvm
     logrotate
@@ -336,6 +340,7 @@ in
     nano
     ncmpcpp
     ncurses
+    neovim
     netbird
     netdata
     networkmanager
