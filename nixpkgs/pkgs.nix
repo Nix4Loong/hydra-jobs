@@ -131,7 +131,6 @@ let
       plasma-browser-integration
       plasma-workspace-wallpapers
       konsole
-      kwin-x11
       ark
       elisa
       gwenview
