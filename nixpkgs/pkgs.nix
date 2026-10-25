@@ -268,8 +268,6 @@ in
     help2man
     htop
     hunspell
-    hydra
-    hydra-check
     i2pd
     ibus
     iconnamingutils
