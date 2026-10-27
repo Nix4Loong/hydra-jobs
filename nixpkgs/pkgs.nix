@@ -375,7 +375,7 @@ in
     pango
     patchelf
     pciutils
-    pcre
+    pcre2
     perl
     picom
     pipewire
