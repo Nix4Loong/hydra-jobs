@@ -36,7 +36,7 @@
   nix.extraOptions = ''
     experimental-features = nix-command flakes
     extra-substituters = https://cache.nix4loong.cn
-    extra-trusted-public-keys = cache.nix4loong.cn-1:zmkwLihdSUyy6OFSVgvK3br0EaUEczLiJgDfvOmm3pA=
+    extra-trusted-public-keys = cache.nix4loong.cn-2:ezZrinY0iBgG5wY+KJOATVPjtNQnQI3skCWrur4rnPk=
   '';
 
   system.nixos-generate-config.configuration = ''
@@ -60,7 +60,7 @@
       nix.extraOptions = \'\'
         experimental-features = nix-command flakes
         extra-substituters = https://cache.nix4loong.cn
-        extra-trusted-public-keys = cache.nix4loong.cn-1:zmkwLihdSUyy6OFSVgvK3br0EaUEczLiJgDfvOmm3pA=
+        extra-trusted-public-keys = cache.nix4loong.cn-2:ezZrinY0iBgG5wY+KJOATVPjtNQnQI3skCWrur4rnPk=
       \'\';
 
     $bootLoaderConfig
