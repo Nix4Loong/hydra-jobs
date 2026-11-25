@@ -27,7 +27,7 @@ jobs:
         id: check-update
         run: |
           LAST_SHA_FILE=".github/last-nixpkgs-sha"
-          BRANCHES="trunk:loong-master release-25.11:loong-release-25.11"
+          BRANCHES="trunk:loong-master release-26.11:loong-release-26.11"
           HAS_UPDATE=false
           UPDATED_BRANCHES=""
 
