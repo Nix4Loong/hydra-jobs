@@ -1,8 +1,8 @@
 {
-  description = "Nix4Loong 25.11 Nixpkgs Tarball";
+  description = "Nix4Loong 26.11 Nixpkgs Tarball";
 
   inputs = {
-    nixpkgs.url = "github:loongson-community/nixpkgs?ref=loong-release-25.11";
+    nixpkgs.url = "github:loongson-community/nixpkgs?ref=loong-release-26.11";
   };
 
   outputs =
@@ -28,7 +28,7 @@
 
       hydraJobs = {
         tarball.loongarch64-linux = build;
-        runCommandHook.publish = common.mkRunCommandHook pkgs build "loong-release-25.11";
+        runCommandHook.publish = common.mkRunCommandHook pkgs build "loong-release-26.11";
       };
     };
 }
